@@ -1,8 +1,12 @@
 # Data Analysis 
+Hi there! 😊 This is a fun project where we make a web application to look at data from CSV files and show some cool pictures.
 ## Table of Contents
+- [Brief Explanation of the Project](#brief-explanation-of-the-project)
 - [Screenshot](#screenshot)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
+- [Installation and Setup](#installation-and-setup)
+## Brief Explanation of the Project
+The Data Analysis is a simple web application that lets you upload CSV files, analyze the data inside them, and see the results and some neat visualizations on a web page. It's built using Django, a popular web framework for Python, and uses libraries like pandas and seaborn for data analysis and visualization.
 
 ## Screenshot
 - Upload 
@@ -14,5 +18,66 @@
 - Python
 - pip
 - Virtual environment tool
-## Installation
+## Installation and Setup
 1. Clone the repository:
+```
+git clone https://github.com/kunaldawane07/Assignment.git
+cd Assignment
+```
+2. Activate virtual environment
+```
+env\Scripts\activate
+```
+3. Install require packages
+```
+pip install -r requirements.txt
+```
+4. Create a Django project and app
+```
+django-admin startproject assignment
+python manage.py startapp assignment_app
+```
+5. Update `settings.py`
+Add 'assignment_app' to the INSTALLED_APPS list in assignment/settings.py.
+6. Create templates folder:
+```
+assignment_app/
+              templates/
+                        upload.html
+                        result.html
+```
+7. Create urls.py in your app folder:
+```
+from django.urls import path
+from .views import upload_file 
+
+urlpatterns = [
+    path('', upload_file, name='upload_file'),
+]
+```
+8. Update project urls.py
+```
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('assignment_app.urls')),
+]
+
+```
+9. Create forms.py in your app directory
+```
+from django import forms
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
+```
+10. Run the migrations:
+```
+python manage.py migrate
+```
+11. Start the server:
+```
+python manage.py runserver
+```
